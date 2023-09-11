@@ -11,7 +11,7 @@ namespace smv {
 namespace conv {
 
 const int kNumPEs = 8;
-const int kNumMaccsPerPE = 32;
+const int kNumMaccsPerPE = 32;//increase this
 
 }  // namespace conv
 }  // namespace smv

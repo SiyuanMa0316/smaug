@@ -186,7 +186,7 @@ void smv_conv3d_nhwc_vec_fxp(float16* host_inputs,
                     bool start_from_zero = (!accumulate && kern_row == 0 &&
                                             kern_col == 0 && ifmap_iters == 0);
                     int ifmap_offset = (ifmap_start + ifmap_iters * pe_depth) /
-                                       VECTOR_SIZE;
+                                       VECTOR_SIZE;//0,4,8,12...
                     int kern_chan_offset =
                             (ifmap_iters * pe_depth) / VECTOR_SIZE;
                     int out_i = 0;  // The result row.
@@ -202,6 +202,7 @@ void smv_conv3d_nhwc_vec_fxp(float16* host_inputs,
 
                     // Load in all the weights at once before beginning the
                     // input loop.
+                    // ? NUM_PE_INSTS PEs, each PE has NUM_MACC_INSTS regs
                     v8fp_t kernel_reg[NUM_PE_INSTS][NUM_MACC_INSTS] = {
                         { zero }, { zero }, { zero }, { zero },
                         { zero }, { zero }, { zero }, { zero }
