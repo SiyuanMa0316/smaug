@@ -10,8 +10,8 @@ namespace smaug {
 namespace smv {
 namespace conv {
 
-const int kNumPEs = 8;
-const int kNumMaccsPerPE = 32;//increase this
+const int kNumPEs = 108;//used to be 8
+const int kNumMaccsPerPE = 64;//used to be 32 increase this
 
 }  // namespace conv
 }  // namespace smv

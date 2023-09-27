@@ -68,7 +68,8 @@ TilingConfig TilingOptimizer::computeBasicTileShapes(SmvConvolutionOp* op) {
     dout(2) << "  Tiling dimensions chosen:\n"
             << "    input: " << inputTilingDims
             << ", weight: " << weightTilingDims
-            << ", output: " << outputTilingDims << "\n";
+            << ", output: " << outputTilingDims 
+            << ", max tile size: "<< maxTileSize << "\n";
 
     TensorShape inputsShape = inputs->getShape();
     TensorShape weightsShape = weights->getShape();
@@ -188,6 +189,8 @@ TilingConfig TilingOptimizer::computeBasicTileShapes(SmvConvolutionOp* op) {
             inputWeightConfigs.push_back(config);
         }
     }
+    dout(2)<< "input weight configs: " <<inputWeightConfigs.size()<<"\n";
+    dout(2)<< "input weight configs empty"<<inputWeightConfigs.empty()<<"\n";
     assert(!inputWeightConfigs.empty() && "No tiling configurations found!");
 
     // Fill in outputs.

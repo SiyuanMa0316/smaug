@@ -204,8 +204,21 @@ void smv_conv3d_nhwc_vec_fxp(float16* host_inputs,
                     // input loop.
                     // ? NUM_PE_INSTS PEs, each PE has NUM_MACC_INSTS regs
                     v8fp_t kernel_reg[NUM_PE_INSTS][NUM_MACC_INSTS] = {
-                        { zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
+                        { zero }, { zero }, { zero }, { zero },{ zero }, { zero }, { zero }, { zero },
                         { zero }, { zero }, { zero }, { zero }
+
                     };
                     const v8fp_t zero = (v8fp_t){ 0, 0, 0, 0, 0, 0, 0, 0 };
                     load_kern_pe:
@@ -267,11 +280,18 @@ void smv_conv3d_nhwc_vec_fxp(float16* host_inputs,
                                                     [ifmap_offset + macc_idx];
                             }
 
-                            v8fp_t accum_vec_reg[NUM_PE_INSTS] = {
-                                zero, zero, zero, zero, zero, zero, zero, zero
-                            };
-                            float accum_reg[NUM_PE_INSTS] = { 0, 0, 0, 0,
-                                                              0, 0, 0, 0 };
+                            // v8fp_t accum_vec_reg[NUM_PE_INSTS] = {
+                            //     zero, zero, zero, zero, zero, zero, zero, zero,
+                            // };
+                            v8fp_t accum_vec_reg[NUM_PE_INSTS];
+                            for(int i=0; i<NUM_PE_INSTS; i++){
+                                accum_vec_reg[i] = zero;
+                            }
+                            //float accum_reg[NUM_PE_INSTS] = { 0, 0, 0, 0, 0, 0, 0, 0};
+                            float accum_reg[NUM_PE_INSTS];
+                            for(int i=0; i<NUM_PE_INSTS; i++){
+                                accum_reg[i] = 0;
+                            }
                             pe_groups:
                             for (int pe_id = 0; pe_id < kEffNumPeInsts;
                                  pe_id++) {

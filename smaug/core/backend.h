@@ -197,7 +197,7 @@ class SmvBackend {
     static int SpadSize() { return smv::kSpadSize; }
     static void initGlobals() {
         // kSpadSize is in terms of float16 data.
-        smv::kSpadSize = 32 * 1024;
+        smv::kSpadSize = 4096 * 1024;//Siyuan: used to be 32 * 1024
         // In SMV, all tensors store float16 data, but due to the modelling
         // restriction of Aladdin, we actually store float32 data in the
         // scratchpads. This why the allocated memory size here is double
